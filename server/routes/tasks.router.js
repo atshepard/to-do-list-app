@@ -16,25 +16,26 @@ tasksRouter.get('/', (req, res) => {
 })
 
 // POST
-koalaRouter.post('/', (req, res) => {
+tasksRouter.post('/', (req, res) => {
     let newTask = req.body;
 
-    let formattedDueDate = moment(task.due).format('MM DD YYYY');
+    let formattedDueDate = moment(newTask.due).format('MM DD YYYY');
 
     let queryText = `
         INSERT INTO "tasks"
-        ("task-name", "due-date", "task-status", "task-category") 
+        ("task", "due", "state", "category") 
         VALUES ($1, $2, $3, $4);
         `
     let values = [newTask.task, formattedDueDate, newTask.state, newTask.priority]
     // pool.query(values)
     console.log('Adding new task', values);
+
     pool.query(queryText, values)
         .then(result => {
             res.sendStatus(201);
         })
         .catch(err => {
-            console.log(`Error in adding koala`, err);
+            console.log(`Error in adding task`, err);
             res.sendStatus(500);
         });
 });

@@ -1,5 +1,3 @@
-const { FALSE } = require("sass");
-
 $(document).ready(function () {
     console.log('jQuery ready');
     // click listeners:
@@ -57,7 +55,12 @@ function getTasks() {
 }
 
 function render(tasks) {
+    $('#currentTasks').empty();
+    $('#completedTasks').empty();
     for (const task of tasks) {
+
+        let formattedDueDate = moment(task.due).format('MMMM d, YYYY');
+        
         if(task.state === false){
             console.log('false means incomplete');
            
