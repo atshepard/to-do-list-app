@@ -1,11 +1,12 @@
 const express = require('express');
 const tasksRouter = express.Router();
 const pool = require('../modules/pool');
+const moment = require('moment');
 
 
 // GET
 tasksRouter.get('/', (req, res) => {
-    let queryText = 'SELECT * FROM "tasks" ORDER BY "task-category" ASC;';
+    let queryText = 'SELECT * FROM "tasks" ORDER BY "category" ASC;';
     pool.query(queryText).then(result => {
         res.send(result.rows);
     }).catch(err => {
