@@ -16,8 +16,8 @@
 [ ] Deleting a task should delete it from the DOM and Database
 
 ## Server Structure:   
-[ ] Make a database called: weekend-to-do-app. 
-[ ] Make a table for tasks to include: 
+[x] Make a database called: weekend-to-do-app. 
+[x] Make a table for tasks to include: 
     - Task Details:
         - VARCHAR (500)?
     - Task Status:
@@ -32,24 +32,24 @@
 ## Project Structure:   
 
 ### Basics:
-[ ] server folder: 
-    [ ] public folder
+[x] server folder: 
+    [x] public folder
         - index.html
-        [ ] scripts
+        [~] scripts
             - client.js
             - jquery
-        [ ] styles
+        [x] styles
             - bootstrap
             - bootstrap map
             - styles.css
-    [ ] modules
-    [ ] router
+    [x] modules
+    [x] router
 - server.js
 - database.sql             
 
 ### Server Functionality: 
-[ ] npm init --yes
-[ ] npm install *packages*:
+[x] npm init --yes
+[x] npm install *packages*:
     - express
     - pg
     - body-parser
