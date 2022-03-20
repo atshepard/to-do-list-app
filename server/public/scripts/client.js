@@ -27,23 +27,44 @@ function setupClickListeners() {
 
     $('#currentTasks').on('click', '.completeChk', completeTask);
 
-    $('#cyberpunk').on('click', cyberPunk)
+    $('#cyberpunk').on('click', cyberPunk);
+    $('#default').on('click', defaultClass);
+
 }
 
 function copyTask() {
-  let task= $(this).closest("tr").data();
+    let task = $(this).closest("tr").data();
 
-  formattedDueDate = moment(task.due).format('YYYY-MM-DD')
+    formattedDueDate = moment(task.due).format('YYYY-MM-DD')
 
-  $('#taskInput').val(task.task);
-  $('#inputDate').val(formattedDueDate);
+    $('#taskInput').val(task.task);
+    $('#inputDate').val(formattedDueDate);
 
 }
 
-function cyberPunk () {
-    $('#pageBody').removeClass('default');
-    $('#pageBody').addClass('cyberpunk');
+function cyberPunk() {
+    console.log('you clicked the cyberpunk button');
+    $('#banner').empty();
+    $('#banner').append('<div><img src="./styles/images/31D48D56-A4C9-46C3-9393-28483D3CF67B.jpeg" style="width: 750px; height: 350px; align-items: center;"></img></div>');
+    $('#pageTitle').empty();
+    $('body').addClass('bg-dark bg-gradient');
+    $('.btn').removeClass('btn-secondary');
+    $('.btn').addClass('btn-warning');
+    $('main').removeClass('default');
+    $('main').addClass('cyberpunk');
 }
+
+function defaultClass() {
+    $('#banner').children("div").remove();
+    $('#pageTitle').text("To - Do List")
+    $('body').addClass('m-2 p-1 bg-light');
+    $('body').removeClass('bg-dark bg-gradient');
+    $('.btn').addClass('btn-secondary');
+    $('.btn').removeClass('btn-warning');
+    $('main').addClass('default');
+    $('main').removeClass('cyberpunk');
+}
+
 
 function deleteTask() {
     let task = $(this).closest("tr").data();
@@ -99,7 +120,6 @@ function getTasks() {
     });
 }
 
-
 function postNewTask(task) {
     console.log('posting new task:', task)
 
@@ -108,7 +128,7 @@ function postNewTask(task) {
         url: '/tasks',
         data: task,
     }).then(function (response) {
-        console.log('Response from sever', response);
+        console.log('Response from server', response);
         getTasks();
     }).catch(function (err) {
         console.log('Error in POST', err);

@@ -1,32 +1,67 @@
-$font-stack: Helvetica,
-sans-serif;
+$font-stack: sans-serif;
+
+.default {
+    html.body {
+        height: 100% !important;
+    }
+
+    body {
+        background-color: bisque;
+        font-family: $font-stack;
+        color: tomato;
+    }
+}
 
 .cyberpunk {
+    $primary-color: #7700a6;
+    $secondary-color: #fe00fe;
+    $accent-color: #defe47;
+
+    html.body {
+        height: 100% !important;
+    }
+
     #pageBody {
-        background-color: #0016ee;
+        height: 100%;
         font-family: $font-stack;
-        color: #fe00fe;
         margin: 2em;
         padding: 2em;
     }
 
-    h1 {
-        color: #fe00fe;
-        background-color: #7700a6;
+    .header {
+        align-items: center;
+        width: fit-content;
+        height: fit-content;
+        margin: 0%;
     }
 
     h4 {
-        color: #fe00fe;
-        background-color: #7700a6;
-
+        color: $primary-color;
+        text-shadow: 0 0 1px $secondary-color;
     }
 
     h5 {
-        color: #fe00fe;
-        background-color: #7700a6;
+        color: $primary-color;
+        text-shadow: 0 0 1px $secondary-color;
+    }
+
+    th {
+        color: $primary-color;
+        text-shadow: 0 0 1px $secondary-color;
+    }
+
+    td {
+        color: $secondary-color;
+        text-shadow: 0 0 1px $accent-color;
+    }
+
+    p {
+        color: $primary-color;
+        text-shadow: 0 0 1px $secondary-color;
     }
 
     .form-group {
-        background-color: #defe47;
+        color: $secondary-color;
+        text-shadow: 0 0 1px $accent-color;
     }
 }

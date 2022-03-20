@@ -1,27 +1,64 @@
+.default html.body {
+  height: 100% !important;
+}
+
+.default body {
+  background-color: bisque;
+  font-family: sans-serif;
+  color: tomato;
+}
+
+.cyberpunk html.body {
+  height: 100% !important;
+}
+
 .cyberpunk #pageBody {
-  background-color: #0016ee;
-  font-family: Helvetica, sans-serif;
-  color: #fe00fe;
+  height: 100%;
+  font-family: sans-serif;
   margin: 2em;
   padding: 2em;
 }
 
-.cyberpunk h1 {
-  color: #fe00fe;
-  background-color: #7700a6;
+.cyberpunk .header {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 0%;
 }
 
 .cyberpunk h4 {
-  color: #fe00fe;
-  background-color: #7700a6;
+  color: #7700a6;
+  text-shadow: 0 0 1px #fe00fe;
 }
 
 .cyberpunk h5 {
+  color: #7700a6;
+  text-shadow: 0 0 1px #fe00fe;
+}
+
+.cyberpunk th {
+  color: #7700a6;
+  text-shadow: 0 0 1px #fe00fe;
+}
+
+.cyberpunk td {
   color: #fe00fe;
-  background-color: #7700a6;
+  text-shadow: 0 0 1px #defe47;
+}
+
+.cyberpunk p {
+  color: #7700a6;
+  text-shadow: 0 0 1px #fe00fe;
 }
 
 .cyberpunk .form-group {
-  background-color: #defe47;
+  color: #fe00fe;
+  text-shadow: 0 0 1px #defe47;
 }
 /*# sourceMappingURL=input.css.map */
