@@ -1,0 +1,32 @@
+$font-stack: Helvetica,
+sans-serif;
+
+.cyberpunk {
+    #pageBody {
+        background-color: #0016ee;
+        font-family: $font-stack;
+        color: #fe00fe;
+        margin: 2em;
+        padding: 2em;
+    }
+
+    h1 {
+        color: #fe00fe;
+        background-color: #7700a6;
+    }
+
+    h4 {
+        color: #fe00fe;
+        background-color: #7700a6;
+
+    }
+
+    h5 {
+        color: #fe00fe;
+        background-color: #7700a6;
+    }
+
+    .form-group {
+        background-color: #defe47;
+    }
+}

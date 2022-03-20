@@ -1,0 +1,27 @@
+.cyberpunk #pageBody {
+  background-color: #0016ee;
+  font-family: Helvetica, sans-serif;
+  color: #fe00fe;
+  margin: 2em;
+  padding: 2em;
+}
+
+.cyberpunk h1 {
+  color: #fe00fe;
+  background-color: #7700a6;
+}
+
+.cyberpunk h4 {
+  color: #fe00fe;
+  background-color: #7700a6;
+}
+
+.cyberpunk h5 {
+  color: #fe00fe;
+  background-color: #7700a6;
+}
+
+.cyberpunk .form-group {
+  background-color: #defe47;
+}
+/*# sourceMappingURL=input.css.map */

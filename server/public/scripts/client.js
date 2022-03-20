@@ -26,6 +26,8 @@ function setupClickListeners() {
     $('#allTasks').on('click', '.copyTask', copyTask);
 
     $('#currentTasks').on('click', '.completeChk', completeTask);
+
+    $('#cyberpunk').on('click', cyberPunk)
 }
 
 function copyTask() {
@@ -36,6 +38,11 @@ function copyTask() {
   $('#taskInput').val(task.task);
   $('#inputDate').val(formattedDueDate);
 
+}
+
+function cyberPunk () {
+    $('#pageBody').removeClass('default');
+    $('#pageBody').addClass('cyberpunk');
 }
 
 function deleteTask() {
