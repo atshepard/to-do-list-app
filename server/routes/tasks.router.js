@@ -41,6 +41,25 @@ tasksRouter.post('/', (req, res) => {
 });
 
 
+tasksRouter.delete('/:id', (req, res) => {
+    let id = req.params.id;
+    console.log(id);
+
+    let queryText = `
+        DELETE FROM "tasks"
+        WHERE "id" = $1;`;
+
+    pool.query(queryText, [id])
+        .then(result => {
+            res.sendStatus(200);
+        }).catch(err => {
+            console.log('POOL BROKE:', err);
+            res.sendStatus(500);
+        })
+
+})
+
+
 // PUT
 
 // koalaRouter.put('/:id', (req, res) => {

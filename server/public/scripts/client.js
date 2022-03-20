@@ -12,33 +12,33 @@ function setupClickListeners() {
         console.log('you clicked the add button');
 
         let taskObject = {
-          task: $('#taskInput').val(),
-          due: $('#inputDate').val(),
-          priority: $('#priority').val(), 
-          state: false,
-        }  
-        
+            task: $('#taskInput').val(),
+            due: $('#inputDate').val(),
+            priority: $('#priority').val(),
+            state: false,
+        }
+
         postNewTask(taskObject);
         $('.input').val('');
     });
 
+    $('#currentTasks').on('click', '.deleteBtn', deleteTask);
 }
 
-function postNewTask(task){
-console.log('posting new task:', task)
+function postNewTask(task) {
+    console.log('posting new task:', task)
 
     $.ajax({
         type: 'POST',
         url: '/tasks',
-        data: task, 
-      }).then(function(response){
+        data: task,
+    }).then(function (response) {
         console.log('Response from sever', response);
         getTasks();
-      }).catch(function(err){
+    }).catch(function (err) {
         console.log('Error in POST', err);
-      });
+    });
 }
-
 
 function getTasks() {
     console.log('getting tasks: ajax');
@@ -54,17 +54,35 @@ function getTasks() {
     });
 }
 
+function deleteTask() {
+    let task = $(this).closest("tr").data();
+    let id = task.id;
+
+    console.log('deleting:', task, id);
+
+    $.ajax({
+        type: 'DELETE',
+        url: `/tasks/${id}`
+    }).then(function (response) {
+        console.log('Response from server', response);
+        getTasks();
+    }).catch(function (err) {
+        console.log('Error in POST', err);
+    })
+
+}
+
 function render(tasks) {
     $('#currentTasks').empty();
     $('#completedTasks').empty();
     for (const task of tasks) {
 
         let formattedDueDate = moment(task.due).format('MMMM d, YYYY');
-        
-        if(task.state === false){
-            console.log('false means incomplete');
-           
-           let row = $( `
+
+        if (task.state === false) {
+            // console.log('false means incomplete');
+
+            let row = $(`
             <tr scope="row">
             <td><input type="checkbox" class="completeChk"></td>
             <td>${task.task}</td>
@@ -78,8 +96,8 @@ function render(tasks) {
 
             $("#currentTasks").append(row);
 
-        } else if (task.state === true){
-            console.log('true means complete');
+        } else if (task.state === true) {
+            // console.log('true means complete');
             let row = $(`
             <tr scope="row">
             <td><input type="checkbox" checked disabled></td>
