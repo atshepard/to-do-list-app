@@ -22,36 +22,20 @@ function setupClickListeners() {
         $('.input').val('');
     });
 
-    $('#currentTasks').on('click', '.deleteBtn', deleteTask);
+    $('#allTasks').on('click', '.deleteBtn', deleteTask);
+    $('#allTasks').on('click', '.copyTask', copyTask);
+
+    $('#currentTasks').on('click', '.completeChk', completeTask);
 }
 
-function postNewTask(task) {
-    console.log('posting new task:', task)
+function copyTask() {
+  let task= $(this).closest("tr").data();
 
-    $.ajax({
-        type: 'POST',
-        url: '/tasks',
-        data: task,
-    }).then(function (response) {
-        console.log('Response from sever', response);
-        getTasks();
-    }).catch(function (err) {
-        console.log('Error in POST', err);
-    });
-}
+  formattedDueDate = moment(task.due).format('YYYY-MM-DD')
 
-function getTasks() {
-    console.log('getting tasks: ajax');
-    // ajax call to server to get tasks
-    $.ajax({
-        type: 'GET',
-        url: '/tasks'
-    }).then(function (response) {
-        console.log(response);
-        render(response);
-    }).catch(function (err) {
-        console.log('error in GET', err);
-    });
+  $('#taskInput').val(task.task);
+  $('#inputDate').val(formattedDueDate);
+
 }
 
 function deleteTask() {
@@ -69,7 +53,59 @@ function deleteTask() {
     }).catch(function (err) {
         console.log('Error in POST', err);
     })
+}
 
+function completeTask() {
+    let task = $(this).closest("tr").data();
+    let id = task.id;
+
+    console.log('completing:', task, id);
+
+    //ajax PUT request to send ID and transfer status:
+
+    $.ajax({
+        url: `/tasks/${id}`,
+        method: 'PUT',
+        data: {
+            state: task.state
+        }
+    }).then(function (response) {
+        console.log('Updated');
+        getTasks();
+    }).catch(function (err) {
+        console.log('EVERYTHING BROKE WHEN COMING BACK FROM UPDATE: ', err);
+    });
+
+}
+
+function getTasks() {
+    console.log('getting tasks: ajax');
+    // ajax call to server to get tasks
+    $.ajax({
+        type: 'GET',
+        url: '/tasks'
+    }).then(function (response) {
+        console.log(response);
+        render(response);
+    }).catch(function (err) {
+        console.log('error in GET', err);
+    });
+}
+
+
+function postNewTask(task) {
+    console.log('posting new task:', task)
+
+    $.ajax({
+        type: 'POST',
+        url: '/tasks',
+        data: task,
+    }).then(function (response) {
+        console.log('Response from sever', response);
+        getTasks();
+    }).catch(function (err) {
+        console.log('Error in POST', err);
+    });
 }
 
 function render(tasks) {
@@ -77,7 +113,8 @@ function render(tasks) {
     $('#completedTasks').empty();
     for (const task of tasks) {
 
-        let formattedDueDate = moment(task.due).format('MMMM d, YYYY');
+        let formattedDueDate = moment(task.due).format('MMMM DD YYYY');
+        let formattedComplete = moment(task.completed).format('MMMM DD YYYY')
 
         if (task.state === false) {
             // console.log('false means incomplete');
@@ -87,8 +124,8 @@ function render(tasks) {
             <td><input type="checkbox" class="completeChk"></td>
             <td>${task.task}</td>
             <td>${formattedDueDate}</td>
-            <td>${task.category}</td>
             <td><button class="btn btn-sm btn-danger-outline deleteBtn">Delete Task</button></td>
+            <td><button class="btn btn-sm btn-secondary-outline copyTask">Copy as New Task</button></td>
             </tr>
             `);
 
@@ -103,8 +140,9 @@ function render(tasks) {
             <td><input type="checkbox" checked disabled></td>
             <td>${task.task}</td>
             <td>${formattedDueDate}</td>
-            <td>${task.complete}</td>
-            <td><button class="btn btn-sm btn-secondary-outline copyTask">Copy Task</button></td>
+            <td>${formattedComplete}</td>
+            <td><button class="btn btn-sm btn-danger-outline deleteBtn">Delete Task</button></td>
+            <td><button class="btn btn-sm btn-secondary-outline copyTask">Copy as New Task</button></td>
             </tr>
             `)
 

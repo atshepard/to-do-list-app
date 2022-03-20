@@ -29,31 +29,21 @@
         <div class="mt-3 mx-3 p-1">
             <h4>Add a new task:</h4>
         </div>
-        <div class="form-group col-md-4 m-3 p-1">
+        <div class="form-group col-md-5 m-3 p-1">
             <label for="taskInput">Add your task description:</label>
             <input type="text" class="form-control input" id="taskInput" placeholder="Task details">
         </div>
-        <div class="form-group col-md-2  m-3 p-1">
+        <div class="form-group col-md-3 m-3 p-1">
             <label for="inputDate">Due date:</label>
             <input type="date" class="form-control input" id="inputDate">
         </div>
-        <div class="form-group col-md-2 m-3 p-1">
-            <label for="priority">Choose a priority:</label>
-
-            <select name="priority" class="form-control" id="priority">
-                <option value=""></option>
-                <option value="top-priority">1: top priority</option>
-                <option value="time-allows">2: when time allows</option>
-                <option value="at-leisure">3: at leisure</option>
-            </select>
-        </div>
-        <div class="col-md-2 m-4 mt-4 p-2">
+        <div class="col-md-2 m-2 mt-4 p-2">
             <label for="addButton"></label>
             <button class="btn btn-secondary" id="addButton">Add Task</button>
         </div>
     
     </div>
-
+<div id="allTasks">
     <div>
         <h5 class="mt-4 mx-4 p-1 border-bottom">Current Tasks:</h5>
         <table class="table table-striped m-4 p-1 ">
@@ -62,7 +52,7 @@
                     <th scope="col" class="complete"></th>
                     <th scope="col">Task</th>
                     <th scope="col">Due Date</th>
-                    <th scope="col">Priority</th>
+                    <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -70,7 +60,6 @@
             </tbody>
         </table>
     </div>
-
     <div>
         <h5 class="mt-4 mx-4 p-1 border-bottom">Completed Tasks:</h5>
         <table class="table table-striped m-4 p-1">
@@ -81,11 +70,13 @@
                     <th scope="col">Due Date</th>
                     <th scope="col">Date Complete</th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody id="completedTasks">
             </tbody>
         </table>
     </div>
+</div>
 </body>
 </html>
