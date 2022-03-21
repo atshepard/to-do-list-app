@@ -1,5 +1,6 @@
 $(document).ready(function () {
     console.log('jQuery ready');
+
     // click listeners:
     setupClickListeners();
     // get current tasks from server:
@@ -42,6 +43,7 @@ function copyTask() {
 
 }
 
+//makes adjustments to bootstrap classes to adjust styles:
 function cyberPunk() {
     console.log('you clicked the cyberpunk button');
     $('#banner').empty();
@@ -53,7 +55,7 @@ function cyberPunk() {
     $('main').removeClass('default');
     $('main').addClass('cyberpunk');
 }
-
+//makes adjustments to bootstrap classes to adjust styles:
 function defaultClass() {
     $('#banner').children("div").remove();
     $('#pageTitle').text("To - Do List")
@@ -65,22 +67,40 @@ function defaultClass() {
     $('main').removeClass('cyberpunk');
 }
 
-
+//deletes task based on id of item when delete button is clicked:
 function deleteTask() {
     let task = $(this).closest("tr").data();
     let id = task.id;
 
     console.log('deleting:', task, id);
 
-    $.ajax({
-        type: 'DELETE',
-        url: `/tasks/${id}`
-    }).then(function (response) {
-        console.log('Response from server', response);
-        getTasks();
-    }).catch(function (err) {
-        console.log('Error in POST', err);
-    })
+    swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this task!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("Poof! Your task has been deleted!", {
+                    icon: "success",
+                });
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: `/tasks/${id}`
+                }).then(function (response) {
+                    console.log('Response from server', response);
+                    getTasks();
+                }).catch(function (err) {
+                    console.log('Error in POST', err);
+                })
+
+            } else {
+                swal("Your task is safe!");
+            }
+        })
 }
 
 function completeTask() {
