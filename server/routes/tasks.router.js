@@ -4,7 +4,7 @@ const pool = require('../modules/pool');
 const moment = require('moment');
 
 
-// GET
+//GET
 tasksRouter.get('/', (req, res) => {
     let queryText = 'SELECT * FROM "tasks" ORDER BY "category" ASC;';
     pool.query(queryText).then(result => {
@@ -15,7 +15,7 @@ tasksRouter.get('/', (req, res) => {
     })
 })
 
-// POST
+//POST
 tasksRouter.post('/', (req, res) => {
     let newTask = req.body;
 
@@ -27,7 +27,6 @@ tasksRouter.post('/', (req, res) => {
         VALUES ($1, $2, $3);
         `
     let values = [newTask.task, formattedDueDate, newTask.state]
-    // pool.query(values)
     console.log('Adding new task', values);
 
     pool.query(queryText, values)
@@ -40,7 +39,7 @@ tasksRouter.post('/', (req, res) => {
         });
 });
 
-
+//DELETE
 tasksRouter.delete('/:id', (req, res) => {
     let id = req.params.id;
     console.log(id);
@@ -59,6 +58,7 @@ tasksRouter.delete('/:id', (req, res) => {
 
 })
 
+//PUT
 tasksRouter.put('/:id', (req, res) => {
     let id = req.params.id;
     let content = req.body.state;
@@ -93,8 +93,7 @@ tasksRouter.put('/:id', (req, res) => {
             res.sendStatus(500);
         })
 
-})
-
+});
 
 
 module.exports = tasksRouter;

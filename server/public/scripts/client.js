@@ -1,14 +1,14 @@
 $(document).ready(function () {
     console.log('jQuery ready');
-
     // click listeners:
     setupClickListeners();
     // get current tasks from server:
     getTasks();
-}); // end doc ready
+}); 
 
-//Click listeners 
+//click listeners:
 function setupClickListeners() {
+    //on click of add button, sends an object to be posted:
     $('#addButton').on('click', function () {
         console.log('you clicked the add button');
 
@@ -22,17 +22,17 @@ function setupClickListeners() {
         postNewTask(taskObject);
         $('.input').val('');
     });
-
+    //listeners for delete, copy and completes:
     $('#allTasks').on('click', '.deleteBtn', deleteTask);
     $('#allTasks').on('click', '.copyTask', copyTask);
-
     $('#currentTasks').on('click', '.completeChk', completeTask);
 
+    //listeners for styles:
     $('#cyberpunk').on('click', cyberPunk);
     $('#default').on('click', defaultClass);
 
 }
-
+//copy task function uses task information to fill in input fields:
 function copyTask() {
     let task = $(this).closest("tr").data();
 
@@ -55,6 +55,7 @@ function cyberPunk() {
     $('main').removeClass('default');
     $('main').addClass('cyberpunk');
 }
+
 //makes adjustments to bootstrap classes to adjust styles:
 function defaultClass() {
     $('#banner').children("div").remove();
@@ -73,7 +74,7 @@ function deleteTask() {
     let id = task.id;
 
     console.log('deleting:', task, id);
-
+    //adds sweet alert to confirm task deletion
     swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this task!",
@@ -86,7 +87,7 @@ function deleteTask() {
                 swal("Poof! Your task has been deleted!", {
                     icon: "success",
                 });
-
+                //if confirm button is clicked, run ajax delete:
                 $.ajax({
                     type: 'DELETE',
                     url: `/tasks/${id}`
@@ -96,21 +97,21 @@ function deleteTask() {
                 }).catch(function (err) {
                     console.log('Error in POST', err);
                 })
-
+                //otherwise, no delete request:
             } else {
                 swal("Your task is safe!");
             }
         })
 }
 
+//sends put request to update completed status:
 function completeTask() {
     let task = $(this).closest("tr").data();
     let id = task.id;
 
     console.log('completing:', task, id);
 
-    //ajax PUT request to send ID and transfer status:
-
+    //ajax PUT request to send ID and task status:
     $.ajax({
         url: `/tasks/${id}`,
         method: 'PUT',
@@ -123,9 +124,9 @@ function completeTask() {
     }).catch(function (err) {
         console.log('EVERYTHING BROKE WHEN COMING BACK FROM UPDATE: ', err);
     });
-
 }
 
+//sends request to go get current tasks on server:
 function getTasks() {
     console.log('getting tasks: ajax');
     // ajax call to server to get tasks
@@ -140,6 +141,7 @@ function getTasks() {
     });
 }
 
+//sends request to post new task to server:
 function postNewTask(task) {
     console.log('posting new task:', task)
 
@@ -149,17 +151,19 @@ function postNewTask(task) {
         data: task,
     }).then(function (response) {
         console.log('Response from server', response);
+        //sends another get request
         getTasks();
     }).catch(function (err) {
         console.log('Error in POST', err);
     });
 }
-
+//renders tasks onto the DOM:
 function render(tasks) {
+    //empties current DOM
     $('#currentTasks').empty();
     $('#completedTasks').empty();
     for (const task of tasks) {
-
+        //formats dates using moment:
         let formattedDueDate = moment(task.due).format('MMMM DD YYYY');
         let formattedComplete = moment(task.completed).format('MMMM DD YYYY')
 
